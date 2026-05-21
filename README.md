@@ -87,6 +87,25 @@ Se a planilha mudar, o programa recalcula tudo novamente com base nos dados atua
 
 Existe um caminho para compilar o programa e transformar ele em um exe, porém precisa ser executado em um micro que nao bloqueie
 
+Para gerar o executável no Windows
 
+Dentro da pasta do projeto, dê dois cliques em:
+compilar_windows.bat
+
+Ou execute pelo terminal:
+compilar_windows.bat
+
+Ao final, o executável será criado em:
+dist\MedidasBanda.exe
+
+Como usar o executável
+Copie para a mesma pasta:
+MedidasBanda.exe
+dados_log_bruto.xlsx
+
+Depois execute:
+MedidasBanda.exe
+
+Ele vai gerar automaticamente:
 
 
