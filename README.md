@@ -83,3 +83,10 @@ A planilha de entrada deve possuir:
   - `Sessions`
 
 Se a planilha mudar, o programa recalcula tudo novamente com base nos dados atuais da aba `Dados`.
+
+
+Existe um caminho para compilar o programa e transformar ele em um exe, porém precisa ser executado em um micro que nao bloqueie
+
+
+
+
