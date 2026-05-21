@@ -1,33 +1,85 @@
-# programa_medicao_bandas
-Esse programa calculo a partir de um arquivo de logs, a linha de banda a ser utilziada para os fw PANW 
-Programa medidas de calculo de banda 
+# Programa Medidas de Banda
 
-Passo a passo 
+Programa em Python para processar a planilha `dados_log_bruto.xlsx`, aba `Dados`, e gerar uma nova planilha `dados_log_bruto_resultado.xlsx` com as abas `Resultado`, `Dados` e `Contas`.
 
+## O que o programa faz
 
-1.) Dentro da pasta extraída, mantenha estes arquivos:
-medidas_banda.py
-requirements.txt
-compilar_windows.bat
-dados_log_bruto.xlsx
+1. Lê a planilha `dados_log_bruto.xlsx`.
+2. Usa sempre a aba `Dados` como fonte dos cálculos.
+3. Cria a aba `Contas` com os dados originais e duas novas colunas:
+   - `Transação = Bytes / Sessions`, com arredondamento para cima.
+   - `Perfil`, conforme a regra:
+     - `4k` para `Transação <= 8192`
+     - `16k` para `Transação <= 32768`
+     - `64k` para `Transação > 32768`
+4. Ordena a aba `Contas` pela coluna A em ordem crescente.
+5. Cria a aba `Resultado`, sem a linha `Grand Total`.
+6. Ordena os perfis da aba `Resultado` pela coluna A em ordem crescente.
+7. Mantém a linha `Total Geral` no final, sem entrar na ordenação.
+8. Gera todos os números sem casas decimais, aplicando arredondamento para cima quando necessário.
 
+## Arquivos principais
 
-2.) Sempre que tiver uma nova planilha, ela deve se chamar exatamente:
-dados_log_bruto.xlsx
+- `medidas_banda.py`: código-fonte principal.
+- `requirements.txt`: dependências do projeto.
+- `compilar_windows.bat`: script para gerar o executável no Windows.
+- `dados_log_bruto.xlsx`: planilha de entrada.
 
-3.) A planilha precisa ter a aba:
-Dados
+## Como executar pelo Python
 
-4.) Dentro da aba Dados, precisam existir estas colunas:
-Bytes
-Sessions
-Application
+Abra o Prompt de Comando ou PowerShell dentro da pasta do projeto e execute:
 
-5.) Para testar sem gerar executável
-Abra o CMD dentro da pasta do projeto e rode:
+```bash
 pip install -r requirements.txt
 python medidas_banda.py
+```
 
+O arquivo de saída será criado na mesma pasta:
 
-6.) Será gerado o arquivo:
+```text
 dados_log_bruto_resultado.xlsx
+```
+
+## Como gerar o executável
+
+No Windows, execute:
+
+```bash
+compilar_windows.bat
+```
+
+O executável será criado em:
+
+```text
+dist\MedidasBanda.exe
+```
+
+## Como usar o executável
+
+Coloque na mesma pasta:
+
+```text
+MedidasBanda.exe
+dados_log_bruto.xlsx
+```
+
+Depois execute `MedidasBanda.exe`.
+
+O programa criará automaticamente:
+
+```text
+dados_log_bruto_resultado.xlsx
+```
+
+## Regras importantes
+
+A planilha de entrada deve possuir:
+
+- Nome do arquivo: `dados_log_bruto.xlsx`
+- Aba obrigatória: `Dados`
+- Colunas obrigatórias na aba `Dados`:
+  - `Application`
+  - `Bytes`
+  - `Sessions`
+
+Se a planilha mudar, o programa recalcula tudo novamente com base nos dados atuais da aba `Dados`.
